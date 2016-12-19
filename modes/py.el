@@ -11,9 +11,9 @@
 
 ;; Disable tab characters, set default tab spacing to 4 chars wide.
 ;; This is the default in init.el already.
-;; (setq indent-tabs-mode nil)
-;; (setq tab-width 4)
-;;(setq python-indent 4)
+(setq indent-tabs-mode nil)
+(setq tab-width 4)
+(setq python-indent 4)
 
 (provide 'py)
 ;;; py.el ends here

@@ -20,10 +20,12 @@
      exec-path-from-shell
      expand-region
      flycheck
-     git-commit-mode
+     ;git-commit-mode
      gist
+     ggtags
      guru-mode
      helm
+     helm-ag
      helm-projectile
      magit
      rainbow-mode
@@ -141,3 +143,5 @@
 
 (provide 'packages)
 ;;; packages.el ends here
+
+(print "packages end")

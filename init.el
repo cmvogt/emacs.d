@@ -7,6 +7,13 @@
 ;; Paths
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
+
+;; Added by Package.el.  This must come before configurations of
+;; installed packages.  Don't delete this line.  If you don't want it,
+;; just comment it out by adding a semicolon to the start of the line.
+;; You may delete these explanatory comments.
+;;(package-initialize)
+
 (add-to-list 'load-path "~/.emacs.d/lib")
 
 ;; Add all top-level subdirectories of .emacs.d to the load path
@@ -41,8 +48,10 @@
 (setq linum-format "%d\u2000")
 
 ;; No tabs, tab inserts 4 spaces by default
-;; (setq-default indent-tabs-mode nil)
-;; (setq-default tab-width 4)
+(setq-default indent-tabs-mode nil)
+(setq-default tab-width 4)
+
+(setq auto-revert-mode t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; EditorConfig
@@ -140,6 +149,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
+(setq flycheck-check-syntax-automatically '(mode-enabled save idle-change))
+(setq flycheck-idle-change-delay 2)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Autocomplete
@@ -147,6 +158,8 @@
 
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
+(setq ac-stop-flymake-on-completing t
+      ac-dwim t)
 (ac-config-default)
 (global-auto-complete-mode t)
 
@@ -168,9 +181,9 @@
 ;; JS/JS2 Mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(add-to-list 'interpreter-mode-alist '("node" . js2-mode))
-(add-hook 'js-mode-hook (lambda () (require 'javascript)))
-(add-hook 'js2-mode-hook (lambda () (require 'javascript)))
+;;(add-to-list 'interpreter-mode-alist '("node" . js2-mode))
+;;(add-hook 'js-mode-hook (lambda () (require 'javascript)))
+;;(add-hook 'js2-mode-hook (lambda () (require 'javascript)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; JSON Mode
@@ -183,26 +196,35 @@
 ;; https://github.com/defunkt/coffee-mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(add-hook 'coffee-mode-hook (lambda () (require 'coffee)))
+;;(add-hook 'coffee-mode-hook (lambda () (require 'coffee)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; SASS/SCSS
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(autoload 'sass-mode "sass" "" t)
-(autoload 'scss-mode "sass" "" t)
+;;(autoload 'sass-mode "sass" "" t)
+;;(autoload 'scss-mode "sass" "" t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Java Mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(add-hook 'java-mode-hook (lambda () (require 'java)))
+;;(add-hook 'java-mode-hook (lambda () (require 'java)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Web Mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(add-hook 'web-mode-hook (lambda () (require 'web)))
+;;(add-hook 'web-mode-hook (lambda () (require 'web)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; C Mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;;(add-hook 'c-mode-common-hook (lambda () (require 'c)))
+(setq c-default-style "k&r"
+      c-basic-offset 4)
+
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; OSX plist bullshit
@@ -219,8 +241,45 @@
               ("-convert" "xml1" "-o" "-" "-")
               nil nil "bplist"])
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Intel Hex Mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'intel-hex-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Guru Mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;(guru-global-mode +1)
+;;(setq guru-warn-only t)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; GTags Config
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(autoload 'gtags-mode "gtags" "" t)
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Helm Config
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'helm-cfg-cv)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Helm-projectile
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'helm-projectile)
+(projectile-global-mode)
+(setq projectile-completion-system 'helm
+      projectile-enable-caching t)
+(helm-projectile-on)
+
+(setq projectile-indexing-method 'alien)
+(setq projectile-file-exists-local-cache-expire (* 5 60))
+
 ;;It is necessary to perform an update!
 (jka-compr-update)
+
+;; Load prefered theme
+(load-theme 'zenburn t)
 
 (provide 'init)
 ;;; init.el ends here
@@ -229,10 +288,17 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(virtualenv-root "~/dev/akamai/git/ptk-selenium-qa/"))
+ '(column-number-mode t)
+ '(custom-safe-themes
+   (quote
+    ("40f6a7af0dfad67c0d4df2a1dd86175436d79fc69ea61614d668a635c2cd94ab" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" default)))
+ '(inhibit-startup-screen t)
+ '(package-selected-packages
+   (quote
+    (ggtags helm-ag zenburn-theme yasnippet web-mode volatile-highlights undo-tree solarized-theme rainbow-mode magit helm-projectile guru-mode gist flycheck expand-region exec-path-from-shell elisp-slime-nav editorconfig auto-complete ag ack-and-a-half ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:family "Consolas" :foundry "outline" :slant normal :weight normal :height 113 :width normal)))))
