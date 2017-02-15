@@ -15,6 +15,7 @@
 ;;(package-initialize)
 
 (add-to-list 'load-path "~/.emacs.d/lib")
+(add-to-list 'load-path "~/share/emacs/site-lisp")
 
 ;; Add all top-level subdirectories of .emacs.d to the load path
 (progn (cd "~/.emacs.d")
@@ -31,11 +32,13 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Disable auto-save, which produces those #* files.
-(setq auto-save-default nil)
+;;(setq auto-save-default nil)
 
-;; Make emacs shell stuff slightly nicer.
-(setenv "PAGER" "/bin/cat")
-(setenv "EDITOR" "/usr/bin/emacsclient")
+(if (not (eq system-type 'windows-nt))
+    ;; Make emacs shell stuff slightly nicer.
+    (setenv "PAGER" "/bin/cat")
+  (setenv "EDITOR" "/usr/bin/emacsclient")
+)
 
 (load "server")
 (unless (server-running-p) (server-start))
@@ -149,8 +152,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (add-hook 'after-init-hook #'global-flycheck-mode)
-(setq flycheck-check-syntax-automatically '(mode-enabled save idle-change))
-(setq flycheck-idle-change-delay 2)
+;;(setq flycheck-check-syntax-automatically '(mode-enabled save idle-change))
+;;(setq flycheck-idle-change-delay 2)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Autocomplete
@@ -159,7 +162,8 @@
 (require 'auto-complete-config)
 (add-to-list 'ac-dictionary-directories "~/.emacs.d/ac-dict")
 (setq ac-stop-flymake-on-completing t
-      ac-dwim t)
+      ac-dwim t
+      ac-use-fuzzy t)
 (ac-config-default)
 (global-auto-complete-mode t)
 
@@ -177,13 +181,16 @@
 
 (add-hook 'python-mode-hook (lambda () (require 'py)))
 
+;; Change python version for flycheck
+(setq flycheck-python-pycompile-executable "python3.6")
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; JS/JS2 Mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;(add-to-list 'interpreter-mode-alist '("node" . js2-mode))
-;;(add-hook 'js-mode-hook (lambda () (require 'javascript)))
-;;(add-hook 'js2-mode-hook (lambda () (require 'javascript)))
+(add-to-list 'interpreter-mode-alist '("node" . js2-mode))
+(add-hook 'js-mode-hook (lambda () (require 'javascript)))
+(add-hook 'js2-mode-hook (lambda () (require 'javascript)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; JSON Mode
@@ -272,8 +279,29 @@
       projectile-enable-caching t)
 (helm-projectile-on)
 
-(setq projectile-indexing-method 'alien)
-(setq projectile-file-exists-local-cache-expire (* 5 60))
+;;For Windows
+
+(if (eq system-type 'windows-nt)
+    (setq projectile-indexing-method 'alien
+          projectile-file-exists-local-cache-expire (* 5 60)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Doxymacs config
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'doxymacs)
+;;(setq doxymacs-use-external-xml-parser t)
+
+(if (eq system-name 'cv-VirtualBox)
+    (add-to-list 'doxymacs-doxygen-dirs '("~/win_docs/projects/common/doc/xml/"
+                                          "~/win_docs/projects/common/doc/xml/index.xml"
+                                          "~/win_docs/projects/common/doc/")))
+
+(add-hook 'c-mode-common-hook 'doxymacs-mode)
+(defun my-doxymacs-font-lock-hook ()
+    (if (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
+        (doxymacs-font-lock)))
+(add-hook 'font-lock-mode-hook 'my-doxymacs-font-lock-hook)
+
 
 ;;It is necessary to perform an update!
 (jka-compr-update)
@@ -292,13 +320,18 @@
  '(custom-safe-themes
    (quote
     ("40f6a7af0dfad67c0d4df2a1dd86175436d79fc69ea61614d668a635c2cd94ab" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" default)))
+ '(doxymacs-doxygen-style "Qt")
+ '(doxymacs-group-comment-end "/**@}*/")
+ '(doxymacs-group-comment-start "/**@{*/")
  '(inhibit-startup-screen t)
  '(package-selected-packages
    (quote
-    (ggtags helm-ag zenburn-theme yasnippet web-mode volatile-highlights undo-tree solarized-theme rainbow-mode magit helm-projectile guru-mode gist flycheck expand-region exec-path-from-shell elisp-slime-nav editorconfig auto-complete ag ack-and-a-half ace-jump-mode))))
+    (tern-auto-complete tern js3-mode web-beautify json-mode ggtags helm-ag zenburn-theme yasnippet web-mode volatile-highlights undo-tree solarized-theme rainbow-mode magit helm-projectile guru-mode gist flycheck expand-region exec-path-from-shell elisp-slime-nav editorconfig auto-complete ag ack-and-a-half ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(default ((t (:family "Consolas" :foundry "outline" :slant normal :weight normal :height 113 :width normal)))))
+ (if (eq system-type 'windows-nt)
+     '(default ((t (:family "Consolas" :foundry "outline" :slant normal :weight normal :height 113 :width normal))))
+   '(default ((t (:family "Inconsolata" :foundry "PfEd" :slant normal :weight normal :height 113 :width normal))))))

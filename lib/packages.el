@@ -23,10 +23,10 @@
      ;git-commit-mode
      gist
      ggtags
-     guru-mode
      helm
      helm-ag
      helm-projectile
+     json-mode
      magit
      rainbow-mode
      solarized-theme
