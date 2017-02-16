@@ -289,7 +289,7 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Doxymacs config
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(when system-name 'cv-VirtualBox
+(when (string-equal system-name "cv-VirtualBox")
     (require 'doxymacs)
   ;;(setq doxymacs-use-external-xml-parser t)
 
