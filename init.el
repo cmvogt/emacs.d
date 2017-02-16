@@ -35,9 +35,11 @@
 ;;(setq auto-save-default nil)
 
 (if (not (eq system-type 'windows-nt))
-    ;; Make emacs shell stuff slightly nicer.
-    (setenv "PAGER" "/bin/cat")
-  (setenv "EDITOR" "/usr/bin/emacsclient")
+    (progn
+      ;; Make emacs shell stuff slightly nicer.
+      (setenv "PAGER" "/bin/cat")
+      (setenv "EDITOR" "/usr/bin/emacsclient"))
+  nil
 )
 
 (load "server")
@@ -280,7 +282,6 @@
 (helm-projectile-on)
 
 ;;For Windows
-
 (if (eq system-type 'windows-nt)
     (setq projectile-indexing-method 'alien
           projectile-file-exists-local-cache-expire (* 5 60)))
@@ -288,19 +289,19 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Doxymacs config
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-(require 'doxymacs)
-;;(setq doxymacs-use-external-xml-parser t)
+(when system-name 'cv-VirtualBox
+    (require 'doxymacs)
+  ;;(setq doxymacs-use-external-xml-parser t)
 
-(if (eq system-name 'cv-VirtualBox)
     (add-to-list 'doxymacs-doxygen-dirs '("~/win_docs/projects/common/doc/xml/"
                                           "~/win_docs/projects/common/doc/xml/index.xml"
-                                          "~/win_docs/projects/common/doc/")))
+                                          "~/win_docs/projects/common/doc/"))
 
-(add-hook 'c-mode-common-hook 'doxymacs-mode)
-(defun my-doxymacs-font-lock-hook ()
-    (if (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
-        (doxymacs-font-lock)))
-(add-hook 'font-lock-mode-hook 'my-doxymacs-font-lock-hook)
+    (add-hook 'c-mode-common-hook 'doxymacs-mode)
+    (defun my-doxymacs-font-lock-hook ()
+      (if (or (eq major-mode 'c-mode) (eq major-mode 'c++-mode))
+          (doxymacs-font-lock)))
+    (add-hook 'font-lock-mode-hook 'my-doxymacs-font-lock-hook))
 
 
 ;;It is necessary to perform an update!
