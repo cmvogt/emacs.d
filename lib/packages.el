@@ -13,14 +13,13 @@
   '(ace-jump-mode
      ack-and-a-half
      ag
-     auto-complete
+     company
      dash
      editorconfig
      elisp-slime-nav
      exec-path-from-shell
      expand-region
      flycheck
-     ;git-commit-mode
      gist
      ggtags
      helm
@@ -33,7 +32,9 @@
      undo-tree
      web-mode
      volatile-highlights
-     yasnippet
+     ycmd
+     company-ycmd
+     flycheck-ycmd
      zenburn-theme)
   "A list of packages to ensure are installed at launch.")
 
