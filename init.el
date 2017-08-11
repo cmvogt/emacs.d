@@ -57,6 +57,7 @@
 (setq-default tab-width 4)
 
 (setq auto-revert-mode t)
+(global-auto-revert-mode 1)
 
 (menu-bar-mode -1)
 (tool-bar-mode -1)
@@ -172,8 +173,8 @@
 ;(global-auto-complete-mode t)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; emacs-ycmd
-;; https://github.com/abingham/emacs-ycmd
+;; Company Mode
+;; https://company-mode.github.io/
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
@@ -352,7 +353,7 @@
  '(inhibit-startup-screen t)
  '(package-selected-packages
    (quote
-    (tern-auto-complete tern js3-mode web-beautify json-mode ggtags helm-ag zenburn-theme yasnippet web-mode volatile-highlights undo-tree solarized-theme rainbow-mode magit helm-projectile guru-mode gist flycheck expand-region exec-path-from-shell elisp-slime-nav editorconfig auto-complete ag ack-and-a-half ace-jump-mode))))
+    (markdown-mode tern-auto-complete tern js3-mode web-beautify json-mode ggtags helm-ag zenburn-theme yasnippet web-mode volatile-highlights undo-tree solarized-theme rainbow-mode magit helm-projectile guru-mode gist flycheck expand-region exec-path-from-shell elisp-slime-nav editorconfig auto-complete ag ack-and-a-half ace-jump-mode))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
