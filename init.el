@@ -50,7 +50,8 @@
 (setq-default column-number-mode t)
 
 (global-linum-mode 1)
-(setq linum-format "%d\u2000")
+(setq linum-format "%d\u0020")
+;;(setq-default line-spacing 0)
 
 ;; No tabs, tab inserts 4 spaces by default
 (setq-default indent-tabs-mode nil)
