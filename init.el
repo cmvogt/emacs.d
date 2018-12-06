@@ -191,7 +191,7 @@
       (require 'ycmd)
       (add-hook 'after-init-hook #'global-ycmd-mode)
       (set-variable 'ycmd-server-command '("python3.6" "/home/cvogt/src/ycmd/ycmd"))
-      (set-variable 'ycmd-extra-conf-whitelist '("/media/sf_WinDocuments/projects/*"))
+      (set-variable 'ycmd-extra-conf-whitelist '("/home/cvogt/projects/*"))
 
       (require 'company-ycmd)
       (company-ycmd-setup)
@@ -292,7 +292,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (autoload 'gtags-mode "gtags" "" t)
 
-
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Helm Config
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -311,6 +310,12 @@
 (if (eq system-type 'windows-nt)
     (setq projectile-indexing-method 'alien
           projectile-file-exists-local-cache-expire (* 5 60)))
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Projectile Config
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Doxymacs config
@@ -354,7 +359,11 @@
  '(inhibit-startup-screen t)
  '(package-selected-packages
    (quote
-    (markdown-mode tern-auto-complete tern js3-mode web-beautify json-mode ggtags helm-ag zenburn-theme yasnippet web-mode volatile-highlights undo-tree solarized-theme rainbow-mode magit helm-projectile guru-mode gist flycheck expand-region exec-path-from-shell elisp-slime-nav editorconfig auto-complete ag ack-and-a-half ace-jump-mode))))
+    (markdown-mode tern-auto-complete tern js3-mode web-beautify json-mode ggtags helm-ag zenburn-theme yasnippet web-mode volatile-highlights undo-tree solarized-theme rainbow-mode magit helm-projectile guru-mode gist flycheck expand-region exec-path-from-shell elisp-slime-nav editorconfig auto-complete ag ack-and-a-half ace-jump-mode)))
+ '(safe-local-variable-values
+   (quote
+    ((eval setq flycheck-clang-include-path
+           (list "/home/cvogt/gecko_sdk_suite/v2.0/protocol/bluetooth_2.6/ble_stack/inc/common" "/home/cvogt/gecko_sdk_suite/v2.0/protocol/bluetooth_2.6/ble_stack/inc/soc" "/home/cvogt/gecko_sdk_suite/v2.0/platform/emlib/inc" "/home/cvogt/gecko_sdk_suite/v2.0/platform/emdrv/common/inc" "/home/cvogt/gecko_sdk_suite/v2.0/platform/emdrv/dmadrv/inc" "/home/cvogt/gecko_sdk_suite/v2.0/platform/emdrv/gpiointerrupt/inc" "/home/cvogt/gecko_sdk_suite/v2.0/platform/emdrv/nvm/inc" "/home/cvogt/gecko_sdk_suite/v2.0/platform/emdrv/ustimer/inc" "/home/cvogt/gecko_sdk_suite/v2.0/platform/emdrv/spidrv/inc" "/home/cvogt/gecko_sdk_suite/v2.0/platform/Device/SiliconLabs/EFR32BG1B/Include" "/home/cvogt/gecko_sdk_suite/v2.0/platform/CMSIS/Include" "/home/cvogt/gecko_sdk_suite/v2.0/platform/bootloader/api" "/home/cvogt/projects/LeftyDev/IAR_LeftyTwo/bgbuild" "/home/cvogt/projects/LeftyDev/LeftyTwo/src" "/home/cvogt/projects/LeftyDev/LeftyTwo/src/accel" "/home/cvogt/projects/LeftyDev/LeftyTwo/src/BIT" "/home/cvogt/projects/LeftyDev/LeftyTwo/src/bluetooth" "/home/cvogt/projects/LeftyDev/LeftyTwo/src/led_drivers" "/home/cvogt/projects/LeftyDev/LeftyTwo/src/lightshow" "/home/cvogt/projects/LeftyDev/LeftyTwo/src/lightshow/EB3" "/home/cvogt/projects/LeftyDev/LeftyTwo/src/pressure" "/home/cvogt/projects/LeftyDev/LeftyTwo/src/spi_flash" "/home/cvogt/projects/LeftyDev/LeftyCommon" "/home/cvogt/projects/LeftyDev/LeftyCommon/accel" "/home/cvogt/projects/LeftyDev/LeftyCommon/pressure" "/home/cvogt/projects/LeftyDev/LeftyCommon/states" "/home/cvogt/projects/common/src/" "/home/cvogt/projects/common/src/accel" "/home/cvogt/projects/common/src/led_drivers" "/home/cvogt/projects/common/src/lightshow" "/home/cvogt/projects/common/src/pressure" "/home/cvogt/projects/common/src/spi_flash" "/home/cvogt/projects/common/src/spi_flash/MX25"))))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
