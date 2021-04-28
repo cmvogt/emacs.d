@@ -11,7 +11,8 @@
 
 (defvar packages
   '(ace-jump-mode
-     ag
+    ag
+    bash-completion
      company
      dash
      editorconfig
@@ -26,11 +27,13 @@
      helm-projectile
      json-mode
      magit
+     markdown-mode
      rainbow-mode
      solarized-theme
      undo-tree
      web-mode
      volatile-highlights
+     yaml-mode
      ycmd
      company-ycmd
      flycheck-ycmd

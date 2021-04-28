@@ -90,8 +90,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'whitespace)
-(setq whitespace-line-column 100)
-(setq fill-column 100)
+;;(setq whitespace-line-column 100)
+;;(setq fill-column 100)
+(setq whitespace-line-column 80)
+(setq fill-column 80)
 (global-whitespace-mode 1)
 (setq whitespace-display-mappings
       ;; all numbers are Unicode codepoint in decimal. try
@@ -180,6 +182,12 @@
 (require 'company)
 (add-hook 'after-init-hook 'global-company-mode)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Bash Completion
+;; https://github.com/szermatt/emacs-bash-completion
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(require 'bash-completion)
+(bash-completion-setup)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; emacs-ycmd
@@ -216,7 +224,7 @@
 (add-hook 'python-mode-hook (lambda () (require 'py)))
 
 ;; Change python version for flycheck
-(setq flycheck-python-pycompile-executable "python3.6")
+(setq flycheck-python-pycompile-executable "python3")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; JS/JS2 Mode
@@ -250,7 +258,12 @@
 ;; Java Mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-;;(add-hook 'java-mode-hook (lambda () (require 'java)))
+(add-hook 'java-mode-hook (lambda () (require 'java)))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; Markdown Mode
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(add-hook 'markdown-mode-hook (lambda() (remove-hook 'before-save-hook 'whitespace-cleanup)))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Web Mode
@@ -264,7 +277,7 @@
 
 ;;(add-hook 'c-mode-common-hook (lambda () (require 'c)))
 (setq c-default-style "k&r"
-      c-basic-offset 4)
+      c-basic-offset 2)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -307,9 +320,9 @@
 (helm-projectile-on)
 
 ;;For Windows
-(if (eq system-type 'windows-nt)
-    (setq projectile-indexing-method 'alien
-          projectile-file-exists-local-cache-expire (* 5 60)))
+;;(if (eq system-type 'windows-nt)
+;;    (setq projectile-indexing-method 'alien
+;;          projectile-file-exists-local-cache-expire (* 5 60)))
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -359,7 +372,7 @@
  '(inhibit-startup-screen t)
  '(package-selected-packages
    (quote
-    (markdown-mode tern-auto-complete tern js3-mode web-beautify json-mode ggtags helm-ag zenburn-theme yasnippet web-mode volatile-highlights undo-tree solarized-theme rainbow-mode magit helm-projectile guru-mode gist flycheck expand-region exec-path-from-shell elisp-slime-nav editorconfig auto-complete ag ace-jump-mode)))
+    (yaml-mode markdown-mode tern-auto-complete tern js3-mode web-beautify json-mode ggtags helm-ag zenburn-theme yasnippet web-mode volatile-highlights undo-tree solarized-theme rainbow-mode magit helm-projectile guru-mode gist flycheck expand-region exec-path-from-shell elisp-slime-nav editorconfig auto-complete ag ace-jump-mode)))
  '(safe-local-variable-values
    (quote
     ((eval setq flycheck-clang-include-path
