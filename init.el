@@ -90,10 +90,10 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (require 'whitespace)
-;;(setq whitespace-line-column 100)
-;;(setq fill-column 100)
-(setq whitespace-line-column 80)
-(setq fill-column 80)
+(setq whitespace-line-column 100)
+(setq fill-column 100)
+;;(setq whitespace-line-column 80)
+;;(setq fill-column 80)
 (global-whitespace-mode 1)
 (setq whitespace-display-mappings
       ;; all numbers are Unicode codepoint in decimal. try
@@ -364,19 +364,16 @@
  ;; If there is more than one, they won't work right.
  '(column-number-mode t)
  '(custom-safe-themes
-   (quote
-    ("40f6a7af0dfad67c0d4df2a1dd86175436d79fc69ea61614d668a635c2cd94ab" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" default)))
+   '("40f6a7af0dfad67c0d4df2a1dd86175436d79fc69ea61614d668a635c2cd94ab" "8aebf25556399b58091e533e455dd50a6a9cba958cc4ebb0aab175863c25b9a4" "a8245b7cc985a0610d71f9852e9f2767ad1b852c2bdea6f4aadc12cce9c4d6d0" default))
  '(doxymacs-doxygen-style "Qt")
  '(doxymacs-group-comment-end "/**@}*/")
  '(doxymacs-group-comment-start "/**@{*/")
  '(inhibit-startup-screen t)
  '(package-selected-packages
-   (quote
-    (yaml-mode markdown-mode tern-auto-complete tern js3-mode web-beautify json-mode ggtags helm-ag zenburn-theme yasnippet web-mode volatile-highlights undo-tree solarized-theme rainbow-mode magit helm-projectile guru-mode gist flycheck expand-region exec-path-from-shell elisp-slime-nav editorconfig auto-complete ag ace-jump-mode)))
+   '(yaml-mode markdown-mode tern-auto-complete tern js3-mode web-beautify json-mode ggtags helm-ag zenburn-theme yasnippet web-mode volatile-highlights undo-tree solarized-theme rainbow-mode magit helm-projectile guru-mode gist flycheck expand-region exec-path-from-shell elisp-slime-nav editorconfig auto-complete ag ace-jump-mode))
  '(safe-local-variable-values
-   (quote
-    ((eval setq flycheck-clang-include-path
-           (list "/home/cvogt/android-owl-v2/"))))))
+   '((eval setq flycheck-clang-include-path
+           (list "/home/cvogt/android-owl-v2/")))))
 
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
