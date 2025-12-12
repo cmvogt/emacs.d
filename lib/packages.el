@@ -23,7 +23,6 @@
      gist
      ggtags
      helm
-     helm-ag
      helm-projectile
      json-mode
      magit
@@ -83,6 +82,7 @@
     ("\\.html?\\'" web-mode web-mode)
     ("\\.js\\'" js3-mode js3-mode)
     ("\\.json\\'" json-mode json-mode)
+    ("\\.bp\\'" json-mode json-mode)
     ("\\.jsp\\'" web-mode web-mode)
     ("\\.latex\\'" auctex LaTeX-mode)
     ("\\.less\\'" less-css-mode less-css-mode)
@@ -141,7 +141,7 @@
   "Ensure PACKAGES are installed.  Missing packages are installed automatically."
   (mapc #'package-install (cl-remove-if #'package-installed-p packages)))
 
-(define-obsolete-function-alias 'ensure-module-deps 'require-packages)
+(define-obsolete-function-alias 'ensure-module-deps 'require-packages "420.0")
 
 (provide 'packages)
 ;;; packages.el ends here

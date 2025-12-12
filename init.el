@@ -1,4 +1,4 @@
-;;; package: --- init.el
+;; package: --- init.el
 ;;; Commentary:
 
 ;;; Code:
@@ -49,7 +49,7 @@
 (setq-default line-number-mode t)
 (setq-default column-number-mode t)
 
-(global-linum-mode 1)
+(setq display-line-numbers-mode t)
 (setq linum-format "%d\u0020")
 ;;(setq-default line-spacing 0)
 
